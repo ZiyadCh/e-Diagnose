@@ -1,9 +1,8 @@
 package com.example.models;
 
 /**
- * User
+ * Infirmier
  */
-
-abstract public class User {
+public class Infirmier {
 
 }

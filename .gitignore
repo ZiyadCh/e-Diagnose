@@ -1,4 +1,23 @@
+# Build output
 target/
-.setting/
+bin/
+*.class
+
+# Eclipse / IDE metadata
 .classpath
 .project
+.settings/
+.factorypath
+*.launch
+.metadata/
+
+# Logs & temp
+*.log
+logs/
+*.tmp
+*~
+*.swp
+
+# OS files
+.DS_Store
+Thumbs.db
