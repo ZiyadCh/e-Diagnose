@@ -1,0 +1,17 @@
+package com.example.models;
+
+/**
+ * Specialites
+ */
+public enum Specialites {
+  CARDIOLOGIE,
+  PNEUMOLOGIE,
+  NEUROLOGIE,
+  GASTRO_ENTEROLOGIE,
+  ENDOCRINOLOGIE,
+  DERMATOLOGIE,
+  RHUMATOLOGIE,
+  PSYCHIATRIE,
+  NEPHROLOGIE,
+  ORTHOPEDIE
+}

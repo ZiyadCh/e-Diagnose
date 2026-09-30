@@ -13,7 +13,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "users")
-public class User {
+abstract public class User {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,5 +27,8 @@ public class User {
 
   @Column(name = "password")
   protected String password;
+
+  @Column(name = "role")
+  protected Role role;
 
 }
