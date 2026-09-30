@@ -2,9 +2,13 @@ package com.example.models;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Inheritance;
+import jakarta.persistence.InheritanceType;
 import jakarta.persistence.Table;
 
 /**
@@ -13,22 +17,75 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "users")
-abstract public class User {
+@Inheritance(strategy = InheritanceType.JOINED)
+public class User {
+
+  protected User() {
+  }
+
+  public User(int id, String nom, String email, String password, Role role) {
+    this.id = id;
+    this.nom = nom;
+    this.email = email;
+    this.password = password;
+    this.role = role;
+  }
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   protected int id;
 
-  @Column(name = "nom", length = 255)
+  @Column(name = "nom", nullable = false)
   protected String nom;
 
-  @Column(name = "email", unique = true, length = 255)
+  @Column(name = "email", nullable = false, unique = true)
   protected String email;
 
-  @Column(name = "password")
+  @Column(name = "password", nullable = false)
   protected String password;
 
-  @Column(name = "role")
+  @Enumerated(EnumType.STRING)
+  @Column(name = "role", nullable = false)
   protected Role role;
+
+  public int getId() {
+    return id;
+  }
+
+  public void setId(int id) {
+    this.id = id;
+  }
+
+  public String getNom() {
+    return nom;
+  }
+
+  public void setNom(String nom) {
+    this.nom = nom;
+  }
+
+  public String getEmail() {
+    return email;
+  }
+
+  public void setEmail(String email) {
+    this.email = email;
+  }
+
+  public String getPassword() {
+    return password;
+  }
+
+  public void setPassword(String password) {
+    this.password = password;
+  }
+
+  public Role getRole() {
+    return role;
+  }
+
+  public void setRole(Role role) {
+    this.role = role;
+  }
 
 }
