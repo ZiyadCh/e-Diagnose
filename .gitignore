@@ -18,6 +18,10 @@ logs/
 *~
 *.swp
 
+# Secrets / local config
+.env
+.env.*
+
 # OS files
 .DS_Store
 Thumbs.db

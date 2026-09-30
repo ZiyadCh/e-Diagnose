@@ -28,6 +28,18 @@
   <artifactId>hibernate-core</artifactId>
   <version>6.6.5.Final</version>
 </dependency>
+<!-- Source: https://mvnrepository.com/artifact/org.postgresql/postgresql -->
+<dependency>
+    <groupId>org.postgresql</groupId>
+    <artifactId>postgresql</artifactId>
+    <version>42.7.13</version>
+    <scope>compile</scope>
+</dependency>
 
+<dependency>
+    <groupId>io.github.cdimascio</groupId>
+    <artifactId>dotenv-java</artifactId>
+    <version>3.0.0</version>
+</dependency>
   </dependencies>
 </project>
