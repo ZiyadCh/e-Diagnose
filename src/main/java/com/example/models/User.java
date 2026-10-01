@@ -1,5 +1,8 @@
 package com.example.models;
 
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -15,13 +18,20 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "users")
-public abstract class User {
+public class User {
 
   protected User() {
   }
 
   public User(int id, String nom, String email, String password, Role role) {
     this.id = id;
+    this.nom = nom;
+    this.email = email;
+    this.password = password;
+    this.role = role;
+  }
+
+  public User(String nom, String email, String password, Role role) {
     this.nom = nom;
     this.email = email;
     this.password = password;
@@ -42,6 +52,7 @@ public abstract class User {
   protected String password;
 
   @Enumerated(EnumType.STRING)
+  @JdbcTypeCode(SqlTypes.NAMED_ENUM)
   @Column(name = "role", nullable = false)
   protected Role role;
 

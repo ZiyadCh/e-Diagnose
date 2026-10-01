@@ -23,12 +23,6 @@
     </dependency>
 
 
- <dependency>
-  <groupId>jakarta.platform</groupId>
-  <artifactId>jakarta.jakartaee-api</artifactId>
-  <version>10.0.0</version>
-  <scope>compile</scope>
-</dependency>
 
 <dependency>
   <groupId>org.hibernate.orm</groupId>
