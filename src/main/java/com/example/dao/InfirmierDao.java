@@ -37,4 +37,15 @@ public class InfirmierDao {
       em.close();
     }
   }
+
+  public void deleteInfirmier(int id) {
+    try (EntityManager em = emf.createEntityManager()) {
+      Infirmier infirmier = findById(id);
+      EntityTransaction tr = em.getTransaction();
+      tr.begin();
+      em.remove(infirmier);
+      tr.commit();
+      em.close();
+    }
+  }
 }
