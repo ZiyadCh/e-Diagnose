@@ -30,6 +30,16 @@ public class GeneralisteDao {
     }
   }
 
+  public Generaliste findByEmail(String email) {
+    try (EntityManager em = emf.createEntityManager()) {
+      return em.createQuery("select g from Generaliste g where g.email = :email", Generaliste.class)
+          .setParameter("email", email)
+          .getResultStream()
+          .findFirst()
+          .orElse(null);
+    }
+  }
+
   public List<Generaliste> findAll() {
     try (EntityManager em = emf.createEntityManager()) {
       return em.createQuery("select g from Generaliste g", Generaliste.class).getResultList();

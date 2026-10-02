@@ -30,6 +30,16 @@ public class SpecialisteDao {
     }
   }
 
+  public Specialiste findByEmail(String email) {
+    try (EntityManager em = emf.createEntityManager()) {
+      return em.createQuery("select s from Specialiste s where s.email = :email", Specialiste.class)
+          .setParameter("email", email)
+          .getResultStream()
+          .findFirst()
+          .orElse(null);
+    }
+  }
+
   public List<Specialiste> findAll() {
     try (EntityManager em = emf.createEntityManager()) {
       return em.createQuery("select s from Specialiste s", Specialiste.class).getResultList();

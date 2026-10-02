@@ -30,6 +30,16 @@ public class UserDao {
     }
   }
 
+  public User findByEmail(String email) {
+    try (EntityManager em = emf.createEntityManager()) {
+      return em.createQuery("select u from User u where u.email = :email", User.class)
+          .setParameter("email", email)
+          .getResultStream()
+          .findFirst()
+          .orElse(null);
+    }
+  }
+
   public List<User> findAll() {
     try (EntityManager em = emf.createEntityManager()) {
       return em.createQuery("select u from User u", User.class).getResultList();

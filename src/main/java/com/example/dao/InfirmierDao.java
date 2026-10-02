@@ -30,6 +30,16 @@ public class InfirmierDao {
     }
   }
 
+  public Infirmier findByEmail(String email) {
+    try (EntityManager em = emf.createEntityManager()) {
+      return em.createQuery("select i from Infirmier i where i.email = :email", Infirmier.class)
+          .setParameter("email", email)
+          .getResultStream()
+          .findFirst()
+          .orElse(null);
+    }
+  }
+
   public List<Infirmier> findAll() {
     try (EntityManager em = emf.createEntityManager()) {
       return em.createQuery("select i from Infirmier i", Infirmier.class).getResultList();
