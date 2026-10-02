@@ -2,6 +2,7 @@ package com.example.models;
 
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
+import org.mindrot.jbcrypt.BCrypt;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -29,7 +30,7 @@ public abstract class User {
   protected User(String nom, String email, String password, Role role) {
     this.nom = nom;
     this.email = email;
-    this.password = password;
+    this.password = BCrypt.hashpw(password, BCrypt.gensalt(12));
     this.role = role;
   }
 
@@ -80,7 +81,7 @@ public abstract class User {
   }
 
   public void setPassword(String password) {
-    this.password = password;
+    this.password = BCrypt.hashpw(password, BCrypt.gensalt(12));
   }
 
   public Role getRole() {

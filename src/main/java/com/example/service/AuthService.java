@@ -1,5 +1,7 @@
 package com.example.service;
 
+import org.mindrot.jbcrypt.BCrypt;
+
 import com.example.dao.UserDao;
 import com.example.models.User;
 
@@ -12,7 +14,7 @@ public class AuthService {
   public boolean login(User user, String password) {
     User foundUser = userDao.findById(user.getId());
     if (foundUser != null) {
-      if (foundUser.getPassword().equals(password)) {
+      if (BCrypt.checkpw(password, foundUser.getPassword())) {
         return true;
       }
     }
