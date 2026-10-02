@@ -1,15 +1,29 @@
 package com.example;
 
-import com.example.dao.UserDao;
-import com.example.models.Role;
-import com.example.models.User;
+import com.example.dao.InfirmierDao;
+import com.example.models.Infirmier;
 
 /**
  * App
  */
 public class App {
   public static void main(String[] args) {
-    UserDao userDao = new UserDao();
-    userDao.createUser(new User("ziyad", "ch@amil", "1234", Role.GENERALISTE));
+    InfirmierDao dao = new InfirmierDao();
+
+    int testId = 1;
+
+    // 1. Fetch the existing entity
+    Infirmier infirmier = dao.findById(testId);
+
+    if (infirmier != null) {
+      System.out.println("***************************************");
+      System.out.println("***************************************");
+      System.out.println("Before Update: " + infirmier.getNom());
+
+      dao.deleteInfirmier(1);
+
+    } else {
+      System.out.println("Infirmier with ID " + testId + " was not found!");
+    }
   }
 }

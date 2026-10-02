@@ -1,6 +1,6 @@
 package com.example.dao;
 
-import com.example.models.User;
+import com.example.models.Generaliste;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
@@ -10,44 +10,44 @@ import jakarta.persistence.Persistence;
 import java.util.List;
 
 /**
- * UserDao
+ * GeneralisteDao
  */
-public class UserDao {
+public class GeneralisteDao {
   private static final EntityManagerFactory emf = Persistence.createEntityManagerFactory("eDiagnose");
 
-  public void createUser(User user) {
+  public void createGeneraliste(Generaliste generaliste) {
     try (EntityManager em = emf.createEntityManager()) {
       EntityTransaction tr = em.getTransaction();
       tr.begin();
-      em.persist(user);
+      em.persist(generaliste);
       tr.commit();
     }
   }
 
-  public User findById(int id) {
+  public Generaliste findById(int id) {
     try (EntityManager em = emf.createEntityManager()) {
-      return em.find(User.class, id);
+      return em.find(Generaliste.class, id);
     }
   }
 
-  public List<User> findAll() {
+  public List<Generaliste> findAll() {
     try (EntityManager em = emf.createEntityManager()) {
-      return em.createQuery("select u from User u", User.class).getResultList();
+      return em.createQuery("select g from Generaliste g", Generaliste.class).getResultList();
     }
   }
 
-  public void updateUser(User user) {
+  public void updateGeneraliste(Generaliste generaliste) {
     try (EntityManager em = emf.createEntityManager()) {
       EntityTransaction tr = em.getTransaction();
       tr.begin();
-      em.merge(user);
+      em.merge(generaliste);
       tr.commit();
     }
   }
 
-  public void deleteUser(int id) {
+  public void deleteGeneraliste(int id) {
     try (EntityManager em = emf.createEntityManager()) {
-      User found = em.find(User.class, id);
+      Generaliste found = em.find(Generaliste.class, id);
       if (found == null) {
         return;
       }
