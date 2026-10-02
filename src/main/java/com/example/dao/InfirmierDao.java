@@ -22,12 +22,19 @@ public class InfirmierDao {
     }
   }
 
-  public void getInfirmier(Infirmier infirmier) {
+  public Infirmier findById(int id) {
+    try (EntityManager em = emf.createEntityManager()) {
+      return em.find(Infirmier.class, id);
+    }
+  }
+
+  public void updateInfirmier(Infirmier infirmier) {
     try (EntityManager em = emf.createEntityManager()) {
       EntityTransaction tr = em.getTransaction();
       tr.begin();
-      em.find(infirmier.getClass(), infirmier);
+      em.merge(infirmier);
       tr.commit();
+      em.close();
     }
   }
 }

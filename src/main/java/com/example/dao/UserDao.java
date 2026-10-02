@@ -26,8 +26,18 @@ public class UserDao {
     try (EntityManager em = emf.createEntityManager()) {
       EntityTransaction tr = em.getTransaction();
       tr.begin();
-      em.find(user.getClass(), user);
+      em.find(User.class, user);
       tr.commit();
+    }
+  }
+
+  public void updateUser(User user) {
+    try (EntityManager em = emf.createEntityManager()) {
+      EntityTransaction tr = em.getTransaction();
+      tr.begin();
+      em.merge(user);
+      tr.commit();
+      em.close();
     }
   }
 }
