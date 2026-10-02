@@ -7,6 +7,8 @@ import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.Persistence;
 
+import java.util.List;
+
 /**
  * UserDao
  */
@@ -22,12 +24,15 @@ public class UserDao {
     }
   }
 
-  public void getUser(User user) {
+  public User findById(int id) {
     try (EntityManager em = emf.createEntityManager()) {
-      EntityTransaction tr = em.getTransaction();
-      tr.begin();
-      em.find(User.class, user);
-      tr.commit();
+      return em.find(User.class, id);
+    }
+  }
+
+  public List<User> findAll() {
+    try (EntityManager em = emf.createEntityManager()) {
+      return em.createQuery("select u from User u", User.class).getResultList();
     }
   }
 
@@ -37,7 +42,19 @@ public class UserDao {
       tr.begin();
       em.merge(user);
       tr.commit();
-      em.close();
+    }
+  }
+
+  public void deleteUser(int id) {
+    try (EntityManager em = emf.createEntityManager()) {
+      User found = em.find(User.class, id);
+      if (found == null) {
+        return;
+      }
+      EntityTransaction tr = em.getTransaction();
+      tr.begin();
+      em.remove(found);
+      tr.commit();
     }
   }
 }

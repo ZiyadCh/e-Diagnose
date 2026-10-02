@@ -1,6 +1,6 @@
 package com.example.dao;
 
-import com.example.models.Infirmier;
+import com.example.models.Specialiste;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
@@ -10,44 +10,44 @@ import jakarta.persistence.Persistence;
 import java.util.List;
 
 /**
- * InfirmierDao
+ * SpecialisteDao
  */
-public class InfirmierDao {
+public class SpecialisteDao {
   private static final EntityManagerFactory emf = Persistence.createEntityManagerFactory("eDiagnose");
 
-  public void createInfirmier(Infirmier infirmier) {
+  public void createSpecialiste(Specialiste specialiste) {
     try (EntityManager em = emf.createEntityManager()) {
       EntityTransaction tr = em.getTransaction();
       tr.begin();
-      em.persist(infirmier);
+      em.persist(specialiste);
       tr.commit();
     }
   }
 
-  public Infirmier findById(int id) {
+  public Specialiste findById(int id) {
     try (EntityManager em = emf.createEntityManager()) {
-      return em.find(Infirmier.class, id);
+      return em.find(Specialiste.class, id);
     }
   }
 
-  public List<Infirmier> findAll() {
+  public List<Specialiste> findAll() {
     try (EntityManager em = emf.createEntityManager()) {
-      return em.createQuery("select i from Infirmier i", Infirmier.class).getResultList();
+      return em.createQuery("select s from Specialiste s", Specialiste.class).getResultList();
     }
   }
 
-  public void updateInfirmier(Infirmier infirmier) {
+  public void updateSpecialiste(Specialiste specialiste) {
     try (EntityManager em = emf.createEntityManager()) {
       EntityTransaction tr = em.getTransaction();
       tr.begin();
-      em.merge(infirmier);
+      em.merge(specialiste);
       tr.commit();
     }
   }
 
-  public void deleteInfirmier(int id) {
+  public void deleteSpecialiste(int id) {
     try (EntityManager em = emf.createEntityManager()) {
-      Infirmier found = em.find(Infirmier.class, id);
+      Specialiste found = em.find(Specialiste.class, id);
       if (found == null) {
         return;
       }
