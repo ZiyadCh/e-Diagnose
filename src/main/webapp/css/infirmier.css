@@ -1,0 +1,246 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: #ffffff;
+  font-family: -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  color: #1f2937;
+  min-height: 100vh;
+}
+
+/* ---------- Top bar ---------- */
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 24px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.topbar .brand {
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: -0.3px;
+}
+
+.topbar .user {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  font-size: 14px;
+  color: #6b7280;
+}
+
+.topbar .user a {
+  color: #2563eb;
+  text-decoration: none;
+}
+
+.topbar .user a:hover {
+  text-decoration: underline;
+}
+
+/* ---------- Layout ---------- */
+.page {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 32px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.box {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.06);
+  padding: 32px;
+}
+
+h1 {
+  font-size: 24px;
+  font-weight: 600;
+  letter-spacing: -0.3px;
+}
+
+h2 {
+  font-size: 18px;
+  font-weight: 600;
+  margin: 28px 0 12px;
+}
+
+.sub {
+  font-size: 14px;
+  color: #6b7280;
+  margin: 6px 0 24px;
+}
+
+/* ---------- Messages ---------- */
+.error,
+.success {
+  font-size: 14px;
+  border-radius: 6px;
+  padding: 10px 12px;
+  margin-bottom: 20px;
+}
+
+.error {
+  color: #b91c1c;
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+}
+
+.success {
+  color: #166534;
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+}
+
+/* ---------- Forms ---------- */
+label {
+  display: block;
+  font-size: 13px;
+  font-weight: 500;
+  color: #374151;
+  margin-bottom: 6px;
+}
+
+input[type="text"],
+input[type="password"],
+input[type="date"],
+input[type="tel"],
+input[type="number"],
+textarea {
+  width: 100%;
+  padding: 10px 12px;
+  font-size: 15px;
+  font-family: inherit;
+  color: #1f2937;
+  background: #ffffff;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+}
+
+textarea {
+  resize: vertical;
+  min-height: 72px;
+}
+
+input:focus,
+textarea:focus {
+  outline: none;
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+}
+
+.span-all {
+  grid-column: 1 / -1;
+}
+
+.search {
+  display: flex;
+  gap: 12px;
+  align-items: flex-end;
+}
+
+.search .field {
+  flex: 1;
+}
+
+input[type="submit"],
+button {
+  padding: 10px 20px;
+  font-size: 15px;
+  font-weight: 500;
+  font-family: inherit;
+  color: #ffffff;
+  background: #2563eb;
+  border: 1px solid #2563eb;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+input[type="submit"]:hover,
+button:hover {
+  background: #1d4ed8;
+}
+
+.actions {
+  margin-top: 24px;
+}
+
+.actions input[type="submit"] {
+  width: 100%;
+}
+
+/* ---------- Existing patient summary ---------- */
+.patient {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+  padding: 16px;
+  background: #f9fafb;
+  border: 1px solid #e5e7eb;
+  border-radius: 6px;
+}
+
+.patient dt {
+  font-size: 13px;
+  color: #6b7280;
+}
+
+.patient dd {
+  font-size: 15px;
+  font-weight: 500;
+}
+
+/* ---------- Table ---------- */
+.table-wrap {
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+th,
+td {
+  text-align: left;
+  padding: 10px 12px;
+  border-bottom: 1px solid #e5e7eb;
+  white-space: nowrap;
+}
+
+th {
+  font-size: 13px;
+  font-weight: 500;
+  color: #6b7280;
+}
+
+.empty {
+  font-size: 14px;
+  color: #6b7280;
+}
+
+@media (max-width: 560px) {
+  .box {
+    padding: 20px;
+  }
+
+  .search {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
