@@ -1,5 +1,4 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -10,43 +9,25 @@
 </head>
 <body>
 
-<div class="login-card">
-  <div class="brand">
-    <span class="brand-logo">eD</span>
-    <h1>eDiagnose</h1>
-    <p class="subtitle">Espace de connexion</p>
-  </div>
+<div class="box">
+  <h1>eDiagnose</h1>
+  <p class="sub">Connectez-vous à votre compte</p>
 
-  <c:if test="${not empty param.error}">
-    <div class="alert">Email ou mot de passe incorrect.</div>
-  </c:if>
+  <% if (request.getParameter("error") != null) { %>
+    <p class="error">Email ou mot de passe incorrect.</p>
+  <% } %>
 
-  <form action="${pageContext.request.contextPath}/login" method="post" novalidate>
-    <div class="field">
-      <label for="email">Adresse email</label>
-      <input type="email" id="email" name="email" placeholder="exemple@ediagnose.com"
-             autocomplete="email" required autofocus>
-    </div>
+  <form action="${pageContext.request.contextPath}/login" method="post">
+    <label for="email">Email</label>
+    <input type="text" id="email" name="email" required>
 
-    <div class="field">
-      <label for="password">Mot de passe</label>
-      <input type="password" id="password" name="password" placeholder="••••••••"
-             autocomplete="current-password" required>
-    </div>
+    <label for="password">Mot de passe</label>
+    <input type="password" id="password" name="password" required>
 
-    <div class="row">
-      <label class="checkbox">
-        <input type="checkbox" name="remember"> Se souvenir de moi
-      </label>
-      <a href="#" class="link">Mot de passe oublié ?</a>
-    </div>
-
-    <button type="submit" class="btn">Se connecter</button>
+    <input type="submit" value="Se connecter">
   </form>
 
-  <p class="footer-text">
-    Pas encore de compte ? <a href="#" class="link">Créer un compte</a>
-  </p>
+  <p class="foot"><a href="#">Mot de passe oublié ?</a></p>
 </div>
 
 </body>
