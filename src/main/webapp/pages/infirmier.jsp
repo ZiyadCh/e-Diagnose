@@ -20,7 +20,6 @@
 
 <main class="page">
 
-  <!-- ===== US1 : Accueil du patient ===== -->
   <section class="box">
     <h1>Accueil du patient</h1>
     <p class="sub">Recherchez le patient par numéro de sécurité sociale avant de l'enregistrer.</p>
@@ -40,7 +39,6 @@
       <button type="submit">Rechercher</button>
     </form>
 
-    <%-- Accès direct au formulaire de création, sans recherche préalable --%>
     <c:if test="${param.nss == null && param.mode == null}">
       <h2>Ajouter un patient</h2>
       <p class="sub">Saisissez son numéro de sécurité sociale pour l'enregistrer directement.</p>
@@ -58,7 +56,6 @@
     <c:if test="${param.nss != null || param.mode != null}">
       <c:choose>
 
-        <%-- Patient existant : nouveaux signes vitaux uniquement --%>
         <c:when test="${patient != null && param.mode == null}">
           <h2>Patient trouvé</h2>
           <dl class="patient">
@@ -106,7 +103,6 @@
           </form>
         </c:when>
 
-        <%-- Nouveau patient --%>
         <c:otherwise>
           <h2>Nouveau patient</h2>
           <form action="${pageContext.request.contextPath}/infirmier/accueil" method="post">
