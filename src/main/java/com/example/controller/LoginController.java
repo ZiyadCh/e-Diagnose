@@ -46,10 +46,12 @@ public class LoginController extends HttpServlet {
     HttpSession session = request.getSession();
     session.setAttribute("user", user);
 
-    if (user.getRole() == Role.INFIRMIER) {
-
-      response.sendRedirect(request.getContextPath() + "/pages/infirmier.jsp");
-    }
+    String page = switch (user.getRole()) {
+      case INFIRMIER -> "/pages/infirmier.jsp";
+      case GENERALISTE -> "/pages/generaliste.jsp";
+      case SPECIALISTE -> "/pages/specialiste.jsp";
+    };
+    response.sendRedirect(request.getContextPath() + page);
 
   }
 
