@@ -2,6 +2,7 @@ package com.example.controller;
 
 import java.io.IOException;
 
+import com.example.models.Role;
 import com.example.models.User;
 import com.example.service.AuthService;
 
@@ -44,7 +45,12 @@ public class LoginController extends HttpServlet {
 
     HttpSession session = request.getSession();
     session.setAttribute("user", user);
-    response.sendRedirect(request.getContextPath() + "/pages/infirmier.jsp");
+
+    if (user.getRole() == Role.INFIRMIER) {
+
+      response.sendRedirect(request.getContextPath() + "/pages/infirmier.jsp");
+    }
+
   }
 
 }

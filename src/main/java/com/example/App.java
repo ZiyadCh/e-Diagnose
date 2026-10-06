@@ -9,6 +9,7 @@ import com.example.models.Role;
  */
 public class App {
   public static void main(String[] args) {
-
+    InfirmierDao infirmierDao = new InfirmierDao();
+    infirmierDao.createInfirmier(new Infirmier("ahmed", "ahmde@gmail,com", "1234", Role.INFIRMIER));
   }
 }

@@ -13,7 +13,7 @@
 <header class="topbar">
   <span class="brand">eDiagnose</span>
   <div class="user">
-    <span>${sessionScope.user.prenom} ${sessionScope.user.nom} (Infirmier)</span>
+    <span>${sessionScope.user.nom} (Infirmier)</span>
     <a href="${pageContext.request.contextPath}/logout">Se déconnecter</a>
   </div>
 </header>
@@ -60,7 +60,6 @@
           <h2>Patient trouvé</h2>
           <dl class="patient">
             <div><dt>Nom</dt><dd>${patient.nom}</dd></div>
-            <div><dt>Prénom</dt><dd>${patient.prenom}</dd></div>
             <div><dt>Date de naissance</dt><dd>${patient.dateNaissance}</dd></div>
             <div><dt>Téléphone</dt><dd>${patient.telephone}</dd></div>
           </dl>
@@ -112,10 +111,6 @@
               <div>
                 <label for="nom">Nom</label>
                 <input type="text" id="nom" name="nom" required>
-              </div>
-              <div>
-                <label for="prenom">Prénom</label>
-                <input type="text" id="prenom" name="prenom" required>
               </div>
               <div>
                 <label for="dateNaissance">Date de naissance</label>
