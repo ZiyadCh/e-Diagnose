@@ -11,15 +11,16 @@ import com.example.models.User;
 public class AuthService {
   private static UserDao userDao = new UserDao();
 
-  public boolean loginCheck(String email, String password) {
+  public User login(String email, String password) {
     User foundUser = userDao.findByEmail(email);
-    if (foundUser != null) {
-      if (BCrypt.checkpw(password, foundUser.getPassword())) {
-        return true;
-      }
+    if (foundUser != null && BCrypt.checkpw(password, foundUser.getPassword())) {
+      return foundUser;
     }
-    return false;
+    return null;
+  }
 
+  public boolean loginCheck(String email, String password) {
+    return login(email, password) != null;
   }
 
 }
