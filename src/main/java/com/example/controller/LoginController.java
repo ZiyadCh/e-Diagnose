@@ -38,11 +38,16 @@ public class LoginController extends HttpServlet {
 
     User user = authService.login(email, password);
 
+    if (user == null) {
+      response.sendRedirect(request.getContextPath() + "/login?error=1");
+      return;
+    }
+
     HttpSession session = request.getSession();
     session.setAttribute("user", user);
 
     String page = switch (user.getRole()) {
-      case INFIRMIER -> "/pages/infirmier.jsp";
+      case INFIRMIER -> "/patient";
       case GENERALISTE -> "/pages/generaliste.jsp";
       case SPECIALISTE -> "/pages/specialiste.jsp";
     };

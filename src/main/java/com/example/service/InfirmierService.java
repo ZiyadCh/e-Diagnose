@@ -2,6 +2,7 @@ package com.example.service;
 
 import com.example.dao.PatientDao;
 import com.example.models.Patient;
+import java.util.List;
 
 /**
  * InfirmierService
@@ -11,5 +12,9 @@ public class InfirmierService {
 
   public void writePatient(Patient patient) {
     patientDao.createPatient(patient);
+  }
+
+  public List<Patient> getPatients() {
+    return patientDao.findAll();
   }
 }

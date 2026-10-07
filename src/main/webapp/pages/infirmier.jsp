@@ -31,156 +31,77 @@
       <p class="error">L'enregistrement a échoué. Vérifiez les champs et réessayez.</p>
     </c:if>
 
-    <form class="search" action="${pageContext.request.contextPath}/infirmier/accueil" method="get">
+    <form class="search" action="${pageContext.request.contextPath}/patient" method="get">
       <div class="field">
-        <label for="nss">Numéro de sécurité sociale</label>
-        <input type="text" id="nss" name="nss" value="${param.nss}" required>
+        <label for="ssn">Numéro de sécurité sociale</label>
+        <input type="text" id="ssn" name="ssn" value="${param.ssn}" required>
       </div>
       <button type="submit">Rechercher</button>
     </form>
 
-    <c:if test="${param.nss == null && param.mode == null}">
-      <h2>Ajouter un patient</h2>
-      <p class="sub">Saisissez son numéro de sécurité sociale pour l'enregistrer directement.</p>
+    <c:if test="${param.ssn == null || empty patients}">
+      <h2>Nouveau patient</h2>
+      <p class="sub">Renseignez les informations du patient pour l'enregistrer.</p>
 
-      <form class="search" action="${pageContext.request.contextPath}/infirmier/accueil" method="get">
-        <input type="hidden" name="mode" value="add">
-        <div class="field">
-          <label for="nssAdd">Numéro de sécurité sociale</label>
-          <input type="text" id="nssAdd" name="nss" required>
+      <form action="${pageContext.request.contextPath}/patient" method="post">
+        <div class="grid">
+          <div>
+            <label for="nom">Nom</label>
+            <input type="text" id="nom" name="nom" required>
+          </div>
+          <div>
+            <label for="ssnPatient">Numéro de sécurité sociale</label>
+            <input type="text" id="ssnPatient" name="ssn" value="${param.ssn}" required>
+          </div>
+          <div>
+            <label for="coordonnees">Coordonnées (téléphone)</label>
+            <input type="tel" id="coordonnees" name="coordonnees" required>
+          </div>
         </div>
-        <button type="submit">Ajouter un patient</button>
+
+        <div class="actions">
+          <input type="submit" value="Ajouter à la file d'attente">
+        </div>
       </form>
     </c:if>
 
-    <c:if test="${param.nss != null || param.mode != null}">
-      <c:choose>
-
-        <c:when test="${patient != null && param.mode == null}">
-          <h2>Patient trouvé</h2>
-          <dl class="patient">
-            <div><dt>Nom</dt><dd>${patient.nom}</dd></div>
-            <div><dt>Date de naissance</dt><dd>${patient.dateNaissance}</dd></div>
-            <div><dt>Téléphone</dt><dd>${patient.telephone}</dd></div>
-          </dl>
-
-          <form action="${pageContext.request.contextPath}/infirmier/accueil" method="post">
-            <input type="hidden" name="csrfToken" value="${sessionScope.csrfToken}">
-            <input type="hidden" name="patientId" value="${patient.id}">
-
-            <h2>Signes vitaux</h2>
-            <div class="grid">
-              <div>
-                <label for="tension">Tension artérielle (ex : 12/8)</label>
-                <input type="text" id="tension" name="tension" required>
-              </div>
-              <div>
-                <label for="frequenceCardiaque">Fréquence cardiaque (bpm)</label>
-                <input type="number" id="frequenceCardiaque" name="frequenceCardiaque" min="0" required>
-              </div>
-              <div>
-                <label for="temperature">Température (°C)</label>
-                <input type="number" id="temperature" name="temperature" step="0.1" min="0" required>
-              </div>
-              <div>
-                <label for="frequenceRespiratoire">Fréquence respiratoire (/min)</label>
-                <input type="number" id="frequenceRespiratoire" name="frequenceRespiratoire" min="0" required>
-              </div>
-              <div>
-                <label for="poids">Poids (kg)</label>
-                <input type="number" id="poids" name="poids" step="0.1" min="0">
-              </div>
-              <div>
-                <label for="taille">Taille (cm)</label>
-                <input type="number" id="taille" name="taille" min="0">
-              </div>
-            </div>
-
-            <div class="actions">
-              <input type="submit" value="Ajouter à la file d'attente">
-            </div>
-          </form>
-        </c:when>
-
-        <c:otherwise>
-          <h2>Nouveau patient</h2>
-          <form action="${pageContext.request.contextPath}/infirmier/accueil" method="post">
-            <input type="hidden" name="csrfToken" value="${sessionScope.csrfToken}">
-
-            <div class="grid">
-              <div>
-                <label for="nom">Nom</label>
-                <input type="text" id="nom" name="nom" required>
-              </div>
-              <div>
-                <label for="dateNaissance">Date de naissance</label>
-                <input type="date" id="dateNaissance" name="dateNaissance" required>
-              </div>
-              <div>
-                <label for="numSecu">Numéro de sécurité sociale</label>
-                <input type="text" id="numSecu" name="numSecu" value="${param.nss}" required>
-              </div>
-              <div>
-                <label for="telephone">Téléphone (optionnel)</label>
-                <input type="tel" id="telephone" name="telephone">
-              </div>
-              <div>
-                <label for="mutuelle">Mutuelle</label>
-                <input type="text" id="mutuelle" name="mutuelle">
-              </div>
-              <div class="span-all">
-                <label for="adresse">Adresse (optionnel)</label>
-                <input type="text" id="adresse" name="adresse">
-              </div>
-              <div class="span-all">
-                <label for="antecedents">Antécédents</label>
-                <textarea id="antecedents" name="antecedents"></textarea>
-              </div>
-              <div>
-                <label for="allergies">Allergies</label>
-                <textarea id="allergies" name="allergies"></textarea>
-              </div>
-              <div>
-                <label for="traitements">Traitements en cours</label>
-                <textarea id="traitements" name="traitements"></textarea>
-              </div>
-            </div>
-
-            <h2>Signes vitaux</h2>
-            <div class="grid">
-              <div>
-                <label for="tension2">Tension artérielle (ex : 12/8)</label>
-                <input type="text" id="tension2" name="tension" required>
-              </div>
-              <div>
-                <label for="frequenceCardiaque2">Fréquence cardiaque (bpm)</label>
-                <input type="number" id="frequenceCardiaque2" name="frequenceCardiaque" min="0" required>
-              </div>
-              <div>
-                <label for="temperature2">Température (°C)</label>
-                <input type="number" id="temperature2" name="temperature" step="0.1" min="0" required>
-              </div>
-              <div>
-                <label for="frequenceRespiratoire2">Fréquence respiratoire (/min)</label>
-                <input type="number" id="frequenceRespiratoire2" name="frequenceRespiratoire" min="0" required>
-              </div>
-              <div>
-                <label for="poids2">Poids (kg)</label>
-                <input type="number" id="poids2" name="poids" step="0.1" min="0">
-              </div>
-              <div>
-                <label for="taille2">Taille (cm)</label>
-                <input type="number" id="taille2" name="taille" min="0">
-              </div>
-            </div>
-
-            <div class="actions">
-              <input type="submit" value="Ajouter à la file d'attente">
-            </div>
-          </form>
-        </c:otherwise>
-      </c:choose>
+    <c:if test="${param.ssn != null && not empty patients}">
+      <h2>Patient trouvé</h2>
+      <dl class="patient">
+        <div><dt>Nom</dt><dd>${patients[0].nom}</dd></div>
+        <div><dt>Coordonnées</dt><dd>${patients[0].coordonnees}</dd></div>
+        <div><dt>Numéro de sécurité sociale</dt><dd>${patients[0].ssn}</dd></div>
+      </dl>
     </c:if>
+
+    <h2>Patients enregistrés</h2>
+    <c:choose>
+      <c:when test="${not empty patients}">
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Nom</th>
+                <th>Coordonnées</th>
+                <th>Numéro de sécurité sociale</th>
+              </tr>
+            </thead>
+            <tbody>
+              <c:forEach var="p" items="${patients}">
+                <tr>
+                  <td>${p.nom}</td>
+                  <td>${p.coordonnees}</td>
+                  <td>${p.ssn}</td>
+                </tr>
+              </c:forEach>
+            </tbody>
+          </table>
+        </div>
+      </c:when>
+      <c:otherwise>
+        <p class="empty">Aucun patient trouvé.</p>
+      </c:otherwise>
+    </c:choose>
   </section>
 
 </main>
