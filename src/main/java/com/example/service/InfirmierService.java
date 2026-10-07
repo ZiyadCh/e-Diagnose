@@ -19,11 +19,10 @@ public class InfirmierService {
     return patientDao.findAll();
   }
 
-  /**
-   * Déplace un patient d'une liste à l'autre (liste d'attente / enregistrés).
-   *
-   * @return false si le patient n'existe pas
-   */
+  public List<Patient> getPatients(Status status) {
+    return patientDao.findByStatus(status);
+  }
+
   public boolean changeStatus(int patientId, Status status) {
     Patient patient = patientDao.findById(patientId);
     if (patient == null) {

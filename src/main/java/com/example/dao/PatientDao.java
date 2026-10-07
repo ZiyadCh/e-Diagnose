@@ -1,6 +1,7 @@
 package com.example.dao;
 
 import com.example.models.Patient;
+import com.example.models.Status;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
@@ -33,6 +34,14 @@ public class PatientDao {
   public List<Patient> findAll() {
     try (EntityManager em = emf.createEntityManager()) {
       return em.createQuery("select p from Patient p", Patient.class).getResultList();
+    }
+  }
+
+  public List<Patient> findByStatus(Status status) {
+    try (EntityManager em = emf.createEntityManager()) {
+      return em.createQuery("select p from Patient p where p.status = :status", Patient.class)
+          .setParameter("status", status)
+          .getResultList();
     }
   }
 

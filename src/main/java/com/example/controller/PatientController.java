@@ -41,8 +41,8 @@ public class PatientController extends HttpServlet {
     }
 
     req.setAttribute("patients", patients);
-    req.setAttribute("attente", patients.stream().filter(p -> p.getStatus() == Status.ATTENTE).toList());
-    req.setAttribute("enregistres", patients.stream().filter(p -> p.getStatus() == Status.ENREGISTRER).toList());
+    req.setAttribute("attente", infirmierService.getPatients(Status.ATTENTE));
+    req.setAttribute("enregistres", infirmierService.getPatients(Status.ENREGISTRER));
     req.getRequestDispatcher("/pages/infirmier.jsp").forward(req, resp);
   }
 }
