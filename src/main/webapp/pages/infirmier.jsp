@@ -25,7 +25,10 @@
     <p class="sub">Recherchez le patient par numéro de sécurité sociale avant de l'enregistrer.</p>
 
     <c:if test="${param.success != null}">
-      <p class="success">Patient ajouté à la file d'attente.</p>
+      <p class="success">Patient enregistré avec succès.</p>
+    </c:if>
+    <c:if test="${param.statut != null}">
+      <p class="success">Liste d'attente mise à jour.</p>
     </c:if>
     <c:if test="${param.error != null}">
       <p class="error">L'enregistrement a échoué. Vérifiez les champs et réessayez.</p>
@@ -60,7 +63,7 @@
         </div>
 
         <div class="actions">
-          <input type="submit" value="Ajouter à la file d'attente">
+          <input type="submit" value="Enregistrer le patient">
         </div>
       </form>
     </c:if>
@@ -71,35 +74,79 @@
         <div><dt>Nom</dt><dd>${patients[0].nom}</dd></div>
         <div><dt>Coordonnées</dt><dd>${patients[0].coordonnees}</dd></div>
         <div><dt>Numéro de sécurité sociale</dt><dd>${patients[0].ssn}</dd></div>
+        <div><dt>Statut</dt><dd>${patients[0].status}</dd></div>
       </dl>
     </c:if>
 
-    <h2>Patients enregistrés</h2>
+    <h2>Liste d'attente</h2>
     <c:choose>
-      <c:when test="${not empty patients}">
-        <div class="table-wrap">
-          <table>
-            <thead>
-              <tr>
-                <th>Nom</th>
-                <th>Coordonnées</th>
-                <th>Numéro de sécurité sociale</th>
-              </tr>
-            </thead>
-            <tbody>
-              <c:forEach var="p" items="${patients}">
+      <c:when test="${not empty attente}">
+        <form action="${pageContext.request.contextPath}/patient/statut" method="post">
+          <input type="hidden" name="statut" value="ENREGISTRER">
+          <div class="table-wrap">
+            <table>
+              <thead>
                 <tr>
-                  <td>${p.nom}</td>
-                  <td>${p.coordonnees}</td>
-                  <td>${p.ssn}</td>
+                  <th>Nom</th>
+                  <th>Coordonnées</th>
+                  <th>Numéro de sécurité sociale</th>
+                  <th>Action</th>
                 </tr>
-              </c:forEach>
-            </tbody>
-          </table>
-        </div>
+              </thead>
+              <tbody>
+                <c:forEach var="p" items="${attente}">
+                  <tr>
+                    <td>${p.nom}</td>
+                    <td>${p.coordonnees}</td>
+                    <td>${p.ssn}</td>
+                    <td>
+                      <button type="submit" name="id" value="${p.id}">Terminer session</button>
+                    </td>
+                  </tr>
+                </c:forEach>
+              </tbody>
+            </table>
+          </div>
+        </form>
       </c:when>
       <c:otherwise>
-        <p class="empty">Aucun patient trouvé.</p>
+        <p class="empty">Aucun patient en liste d'attente.</p>
+      </c:otherwise>
+    </c:choose>
+
+    <h2>Patients enregistrés</h2>
+    <c:choose>
+      <c:when test="${not empty enregistres}">
+        <form action="${pageContext.request.contextPath}/patient/statut" method="post">
+          <input type="hidden" name="statut" value="ATTENTE">
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Nom</th>
+                  <th>Coordonnées</th>
+                  <th>Numéro de sécurité sociale</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <c:forEach var="p" items="${enregistres}">
+                  <tr>
+                    <td>${p.nom}</td>
+                    <td>${p.coordonnees}</td>
+                    <td>${p.ssn}</td>
+                    <td>
+                      <button type="submit" name="id" value="${p.id}">Mettre en attente</button>
+                    </td>
+                  </tr>
+                </c:forEach>
+              </tbody>
+            </table>
+          </div>
+        </form>
+      </c:when>
+      <c:otherwise>
+        <p class="empty">Aucun patient enregistré.</p>
       </c:otherwise>
     </c:choose>
   </section>

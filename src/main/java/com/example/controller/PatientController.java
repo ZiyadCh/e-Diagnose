@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.List;
 
 import com.example.models.Patient;
+import com.example.models.Status;
 import com.example.service.InfirmierService;
 
 import jakarta.servlet.ServletException;
@@ -40,6 +41,8 @@ public class PatientController extends HttpServlet {
     }
 
     req.setAttribute("patients", patients);
+    req.setAttribute("attente", patients.stream().filter(p -> p.getStatus() == Status.ATTENTE).toList());
+    req.setAttribute("enregistres", patients.stream().filter(p -> p.getStatus() == Status.ENREGISTRER).toList());
     req.getRequestDispatcher("/pages/infirmier.jsp").forward(req, resp);
   }
 }

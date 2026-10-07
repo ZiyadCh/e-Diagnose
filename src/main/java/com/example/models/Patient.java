@@ -2,10 +2,14 @@ package com.example.models;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
 
 /**
  * Patient
@@ -27,6 +31,11 @@ public class Patient {
   @Column(name = "ssn", nullable = false, unique = true)
   protected String ssn;
 
+  @Enumerated(EnumType.STRING)
+  @JdbcTypeCode(SqlTypes.NAMED_ENUM)
+  @Column(name = "status", nullable = false)
+  protected Status status;
+
   public Patient() {
   }
 
@@ -34,6 +43,7 @@ public class Patient {
     this.nom = nom;
     this.coordonnees = coordonnees;
     this.ssn = ssn;
+    this.status = Status.ENREGISTRER;
   }
 
   public int getId() {
@@ -66,6 +76,14 @@ public class Patient {
 
   public void setSsn(String ssn) {
     this.ssn = ssn;
+  }
+
+  public Status getStatus() {
+    return status;
+  }
+
+  public void setStatus(Status status) {
+    this.status = status;
   }
 
 }
