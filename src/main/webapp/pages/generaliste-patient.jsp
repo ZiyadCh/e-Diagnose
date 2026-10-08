@@ -1,6 +1,20 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
-<%@ taglib prefix="fn" uri="jakarta.tags.functions" %>
+<%@ page import="com.example.models.Patient" %>
+<%@ page import="com.example.service.GeneralisteService" %>
+<%
+  String patientID = request.getParameter("patientID");
+  Patient patient = null;
+  if (patientID != null && !patientID.isEmpty()) {
+    try {
+      GeneralisteService generalisteService = new GeneralisteService();
+      patient = generalisteService.getPatient(Integer.parseInt(patientID));
+    } catch (NumberFormatException e) {
+      patient = null;
+    }
+  }
+  request.setAttribute("patient", patient);
+%>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -32,29 +46,36 @@
       <p class="error">L'enregistrement du diagnostic a échoué. Vérifiez le champ et réessayez.</p>
     </c:if>
 
-    <dl class="patient">
-      <div><dt>Nom</dt><dd>${patient.nom}</dd></div>
-      <div><dt>Coordonnées</dt><dd>${patient.coordonnees}</dd></div>
-      <div><dt>Numéro de sécurité sociale</dt><dd>${patient.ssn}</dd></div>
-      <div><dt>Statut</dt><dd>${patient.status}</dd></div>
-      <div><dt>Diagnostic</dt><dd>${empty patient.diagnostic ? '—' : fn:escapeXml(patient.diagnostic)}</dd></div>
-    </dl>
+    <c:if test="${empty patient}">
+      <p class="error">Patient introuvable.</p>
+      <p class="sub"><a href="${pageContext.request.contextPath}/generaliste">← Retour à la liste d'attente</a></p>
+    </c:if>
 
-    <h2>Diagnostic</h2>
-    <form action="${pageContext.request.contextPath}/generaliste" method="post">
-      <input type="hidden" name="patientID" value="${patient.id}">
-      <label for="diagnostic">Diagnostic</label>
-      <textarea id="diagnostic" name="diagnostic" rows="4">${fn:escapeXml(patient.diagnostic)}</textarea>
+    <c:if test="${not empty patient}">
+      <dl class="patient">
+        <div><dt>Nom</dt><dd><c:out value="${patient.nom}"/></dd></div>
+        <div><dt>Coordonnées</dt><dd><c:out value="${patient.coordonnees}"/></dd></div>
+        <div><dt>Numéro de sécurité sociale</dt><dd><c:out value="${patient.ssn}"/></dd></div>
+        <div><dt>Statut</dt><dd><c:out value="${patient.status}"/></dd></div>
+        <div><dt>Diagnostic</dt><dd><c:out value="${patient.diagnostic}" default="—"/></dd></div>
+      </dl>
 
-      <div class="actions-row">
-        <input type="submit" value="Ajouter diagnostic">
-        <button type="button">Consulter un spécialiste</button>
-      </div>
-    </form>
+      <h2>Diagnostic</h2>
+      <form action="${pageContext.request.contextPath}/generaliste" method="POST">
+        <input type="hidden" name="patientID" value="${patient.id}">
+        <label for="diagnostic">Diagnostic</label>
+        <textarea id="diagnostic" name="diagnostic" rows="4"><c:out value="${patient.diagnostic}"/></textarea>
 
-    <p class="sub">
-      <a href="${pageContext.request.contextPath}/generaliste">← Retour à la liste d'attente</a>
-    </p>
+        <div class="actions-row">
+          <input type="submit" value="Ajouter diagnostic">
+          <button type="button">Consulter un spécialiste</button>
+        </div>
+      </form>
+
+      <p class="sub">
+        <a href="${pageContext.request.contextPath}/generaliste">← Retour à la liste d'attente</a>
+      </p>
+    </c:if>
   </section>
 
 </main>

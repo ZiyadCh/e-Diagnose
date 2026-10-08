@@ -26,7 +26,7 @@
 
           <c:choose>
       <c:when test="${not empty attente}">
-    <form action="${pageContext.request.contextPath}/generaliste" method="GET">
+    <form action="${pageContext.request.contextPath}/pages/generaliste-patient.jsp" method="GET">
         <div class="table-wrap">
           <table>
             <thead>
@@ -45,7 +45,7 @@
                   <td>${p.nom}</td>
                   <td>${p.coordonnees}</td>
                   <td>${p.ssn}</td>
-                  <td><button type="submit" name="patientID" value="${p.id}">Ajouter un diagnostic</button></td>
+                  <td><button type="submit" name="patientID" value="${p.id}">Diagnostique</button></td>
                 </tr>
               </c:forEach>
             </tbody>
