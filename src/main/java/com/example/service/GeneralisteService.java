@@ -31,5 +31,4 @@ public class GeneralisteService {
   public List<Specialiste> searchSpecialiste() {
     return specialisteDao.findAll();
   }
-
 }
