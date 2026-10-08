@@ -2,6 +2,7 @@ package com.example.controller;
 
 import java.io.IOException;
 
+import com.example.dao.PatientDao;
 import com.example.models.Patient;
 import com.example.service.GeneralisteService;
 
@@ -18,6 +19,7 @@ import jakarta.servlet.http.HttpServletResponse;
 public class GeneralisteController extends HttpServlet {
 
   private static final GeneralisteService generalisteService = new GeneralisteService();
+  private static final PatientDao patientDao = new PatientDao();
 
   @Override
   protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -27,8 +29,10 @@ public class GeneralisteController extends HttpServlet {
 
   @Override
   protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-    int patient = Integer.parseInt(req.getParameter("patientID"));
+    int patientId = Integer.parseInt(req.getParameter("patientID"));
     String diagnostic = req.getParameter("diagnostic");
+    Patient patient = patientDao.findById(patientId);
+    generalisteService.diagnoePatient(patient, diagnostic);
   }
 
 }
