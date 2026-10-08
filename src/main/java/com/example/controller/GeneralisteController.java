@@ -33,6 +33,9 @@ public class GeneralisteController extends HttpServlet {
     String diagnostic = req.getParameter("diagnostic");
     Patient patient = patientDao.findById(patientId);
     generalisteService.diagnoePatient(patient, diagnostic);
+    String referer = req.getHeader("Referer");
+    resp.sendRedirect(referer != null ? referer : req.getContextPath() + "/generaliste");
+
   }
 
 }
