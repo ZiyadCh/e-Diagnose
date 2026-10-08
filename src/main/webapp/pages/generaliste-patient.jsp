@@ -1,8 +1,21 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <%@ page import="com.example.models.Patient" %>
+<%@ page import="com.example.models.Status" %>
 <%@ page import="com.example.service.GeneralisteService" %>
+<%@ page import="com.example.service.InfirmierService" %>
 <%
+  String cloturer = request.getParameter("cloturer");
+  if (cloturer != null && !cloturer.isEmpty()) {
+    try {
+      InfirmierService infirmierService = new InfirmierService();
+      infirmierService.changeStatus(Integer.parseInt(cloturer), Status.ENREGISTRER);
+    } catch (NumberFormatException e) {
+    }
+    response.sendRedirect(request.getContextPath() + "/generaliste");
+    return;
+  }
+
   String patientID = request.getParameter("patientID");
   Patient patient = null;
   if (patientID != null && !patientID.isEmpty()) {
@@ -70,6 +83,12 @@
           <input type="submit" value="Ajouter diagnostic">
           <button type="button">Consulter un spécialiste</button>
         </div>
+      </form>
+
+      <form action="${pageContext.request.contextPath}/pages/generaliste-patient.jsp" method="POST" class="actions-row">
+        <input type="hidden" name="patientID" value="${patient.id}">
+        <input type="hidden" name="cloturer" value="${patient.id}">
+        <input type="submit" value="Clôturer">
       </form>
 
       <p class="sub">
