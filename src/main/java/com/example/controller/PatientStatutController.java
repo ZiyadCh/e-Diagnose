@@ -13,9 +13,6 @@ import jakarta.servlet.http.HttpServletResponse;
 
 /**
  * PatientStatutController
- *
- * POST /patient/statut -> déplace un patient vers la liste d'attente ou les
- * patients enregistrés (paramètres : id, statut)
  */
 @WebServlet("/patient/statut")
 public class PatientStatutController extends HttpServlet {

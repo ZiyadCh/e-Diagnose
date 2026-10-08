@@ -15,9 +15,6 @@ import jakarta.servlet.http.HttpSession;
 
 /**
  * LoginController
- *
- * GET /login -> show the login page
- * POST /login -> check the credentials and open the session
  */
 @WebServlet("/login")
 public class LoginController extends HttpServlet {

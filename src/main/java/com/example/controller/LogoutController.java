@@ -10,8 +10,6 @@ import jakarta.servlet.http.HttpServletResponse;
 
 /**
  * LogoutController
- *
- * GET /logout -> destroy the session and go back to the login page
  */
 @WebServlet("/logout")
 public class LogoutController extends HttpServlet {
