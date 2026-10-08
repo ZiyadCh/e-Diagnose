@@ -81,7 +81,7 @@
 
         <div class="actions-row">
           <input type="submit" value="Ajouter diagnostic">
-          <button type="button">Consulter un spécialiste</button>
+          <button type="button" onclick="location.href='${pageContext.request.contextPath}/pages/specialiste.jsp?patientID=${patient.id}'">Consulter un spécialiste</button>
         </div>
       </form>
 

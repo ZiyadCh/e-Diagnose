@@ -249,3 +249,25 @@ th {
     align-items: stretch;
   }
 }
+
+.filter-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.filter-row label {
+  font-size: 14px;
+  color: #6b7280;
+}
+
+select {
+  padding: 10px 12px;
+  font-size: 15px;
+  font-family: inherit;
+  color: #111827;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 6px;
+}
