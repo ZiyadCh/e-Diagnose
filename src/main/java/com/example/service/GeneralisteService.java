@@ -11,11 +11,17 @@ import java.util.List;
 public class GeneralisteService {
   private static final PatientDao patientDao = new PatientDao();
 
-  /**
-   * Retourne les patients en attente de prise en charge (liste d'attente).
-   */
   public List<Patient> getPatientsEnAttente() {
     return patientDao.findByStatus(Status.ATTENTE);
+  }
+
+  public Patient getPatient(int patientId) {
+    return patientDao.findById(patientId);
+  }
+
+  public void diagnoePatient(Patient patient, String diagnostic) {
+    patient.setDiagnostic(diagnostic);
+    patientDao.updatePatient(patient);
   }
 
 }

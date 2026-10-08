@@ -24,34 +24,40 @@
     <h1>Patients en liste d'attente</h1>
     <p class="sub">Patients en attente de prise en charge.</p>
 
-    <c:choose>
+          <c:choose>
       <c:when test="${not empty attente}">
+    <form action="${pageContext.request.contextPath}/generaliste" method="GET">
         <div class="table-wrap">
           <table>
             <thead>
               <tr>
+                <th>ID</th>
                 <th>Nom</th>
                 <th>Coordonnées</th>
                 <th>Numéro de sécurité sociale</th>
+                <th>Action</th>
               </tr>
             </thead>
             <tbody>
               <c:forEach var="p" items="${attente}">
                 <tr>
+                  <td>${p.id}</td>
                   <td>${p.nom}</td>
                   <td>${p.coordonnees}</td>
                   <td>${p.ssn}</td>
+                  <td><button type="submit" name="patientID" value="${p.id}">Ajouter un diagnostic</button></td>
                 </tr>
               </c:forEach>
             </tbody>
           </table>
         </div>
+      </form>
       </c:when>
       <c:otherwise>
         <p class="empty">Aucun patient en liste d'attente.</p>
       </c:otherwise>
     </c:choose>
-  </section>
+      </section>
 
 </main>
 

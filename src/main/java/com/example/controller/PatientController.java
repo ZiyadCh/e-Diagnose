@@ -16,7 +16,6 @@ import jakarta.servlet.http.HttpServletResponse;
 /**
  * PatientController
  *
- * POST /patient -> create a new patient
  */
 @WebServlet("/patient")
 public class PatientController extends HttpServlet {

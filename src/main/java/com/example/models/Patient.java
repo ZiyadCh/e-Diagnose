@@ -36,6 +36,9 @@ public class Patient {
   @Column(name = "status", nullable = false)
   protected Status status;
 
+  @Column(name = "diagnostic")
+  protected String diagnostic;
+
   public Patient() {
   }
 
@@ -84,6 +87,14 @@ public class Patient {
 
   public void setStatus(Status status) {
     this.status = status;
+  }
+
+  public String getDiagnostic() {
+    return diagnostic;
+  }
+
+  public void setDiagnostic(String diagnostic) {
+    this.diagnostic = diagnostic;
   }
 
 }

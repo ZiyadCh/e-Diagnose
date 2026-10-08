@@ -2,6 +2,7 @@ package com.example.controller;
 
 import java.io.IOException;
 
+import com.example.models.Patient;
 import com.example.service.GeneralisteService;
 
 import jakarta.servlet.ServletException;
@@ -22,6 +23,12 @@ public class GeneralisteController extends HttpServlet {
   protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
     req.setAttribute("attente", generalisteService.getPatientsEnAttente());
     req.getRequestDispatcher("/pages/generaliste.jsp").forward(req, resp);
+  }
+
+  @Override
+  protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    int patient = Integer.parseInt(req.getParameter("patientID"));
+    String diagnostic = req.getParameter("diagnostic");
   }
 
 }
