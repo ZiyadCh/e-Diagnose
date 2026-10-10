@@ -45,6 +45,17 @@ public class PatientDao {
     }
   }
 
+  public List<Patient> findBySpecialiste(int specialisteId) {
+    try (EntityManager em = emf.createEntityManager()) {
+      return em.createQuery(
+              "select p from Patient p where p.specialisteId = :specialisteId and p.status = :status",
+              Patient.class)
+          .setParameter("specialisteId", specialisteId)
+          .setParameter("status", Status.SPECIALISTE)
+          .getResultList();
+    }
+  }
+
   public void updatePatient(Patient patient) {
     try (EntityManager em = emf.createEntityManager()) {
       EntityTransaction tr = em.getTransaction();

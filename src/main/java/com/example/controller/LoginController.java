@@ -46,7 +46,7 @@ public class LoginController extends HttpServlet {
     String page = switch (user.getRole()) {
       case INFIRMIER -> "/patient";
       case GENERALISTE -> "/generaliste";
-      case SPECIALISTE -> "/pages/specialiste.jsp";
+      case SPECIALISTE -> "/specialiste";
     };
     response.sendRedirect(request.getContextPath() + page);
 

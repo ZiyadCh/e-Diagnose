@@ -5,5 +5,6 @@ package com.example.models;
  */
 public enum Status {
   ENREGISTRER,
-  ATTENTE
+  ATTENTE,
+  SPECIALISTE
 }

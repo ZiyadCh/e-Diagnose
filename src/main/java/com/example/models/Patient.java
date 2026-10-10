@@ -39,6 +39,9 @@ public class Patient {
   @Column(name = "diagnostic")
   protected String diagnostic;
 
+  @Column(name = "specialiste_id")
+  protected Integer specialisteId;
+
   public Patient() {
   }
 
@@ -95,6 +98,14 @@ public class Patient {
 
   public void setDiagnostic(String diagnostic) {
     this.diagnostic = diagnostic;
+  }
+
+  public Integer getSpecialisteId() {
+    return specialisteId;
+  }
+
+  public void setSpecialisteId(Integer specialisteId) {
+    this.specialisteId = specialisteId;
   }
 
 }

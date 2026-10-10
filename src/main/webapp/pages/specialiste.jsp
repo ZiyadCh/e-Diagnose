@@ -70,6 +70,7 @@
                 <th>Nom</th>
                 <th>Email</th>
                 <th>Spécialité</th>
+                <c:if test="${not empty param.patientID}"><th>Action</th></c:if>
               </tr>
             </thead>
             <tbody>
@@ -79,6 +80,14 @@
                   <td><c:out value="${s.nom}"/></td>
                   <td><c:out value="${s.email}"/></td>
                   <td><c:out value="${s.specialite}"/></td>
+                  <c:if test="${not empty param.patientID}">
+                    <td>
+                      <form action="${pageContext.request.contextPath}/patient/specialiste" method="POST">
+                        <input type="hidden" name="patientID" value="${param.patientID}">
+                        <button type="submit" name="specialisteID" value="${s.id}">Envoyer</button>
+                      </form>
+                    </td>
+                  </c:if>
                 </tr>
               </c:forEach>
             </tbody>

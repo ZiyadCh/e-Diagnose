@@ -1,10 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <%@ page import="com.example.models.Patient" %>
+<%@ page import="com.example.models.Role" %>
 <%@ page import="com.example.models.Status" %>
+<%@ page import="com.example.models.User" %>
 <%@ page import="com.example.service.GeneralisteService" %>
 <%@ page import="com.example.service.InfirmierService" %>
+<%@ page import="jakarta.servlet.http.HttpSession" %>
 <%
+  HttpSession sess = request.getSession(false);
+  User currentUser = sess == null ? null : (User) sess.getAttribute("user");
+  boolean estSpecialiste = currentUser != null && currentUser.getRole() == Role.SPECIALISTE;
+  request.setAttribute("roleLabel", estSpecialiste ? "Spécialiste" : "Généraliste");
+  request.setAttribute("estSpecialiste", estSpecialiste);
+
   String cloturer = request.getParameter("cloturer");
   if (cloturer != null && !cloturer.isEmpty()) {
     try {
@@ -12,7 +21,7 @@
       infirmierService.changeStatus(Integer.parseInt(cloturer), Status.ENREGISTRER);
     } catch (NumberFormatException e) {
     }
-    response.sendRedirect(request.getContextPath() + "/generaliste");
+    response.sendRedirect(request.getContextPath() + (estSpecialiste ? "/specialiste" : "/generaliste"));
     return;
   }
 
@@ -41,7 +50,7 @@
 <header class="topbar">
   <span class="brand">eDiagnose</span>
   <div class="user">
-    <span>${sessionScope.user.nom} (Généraliste)</span>
+    <span>${sessionScope.user.nom} (${roleLabel})</span>
     <a href="${pageContext.request.contextPath}/logout">Se déconnecter</a>
   </div>
 </header>
@@ -81,7 +90,9 @@
 
         <div class="actions-row">
           <input type="submit" value="Ajouter diagnostic">
-          <button type="button" onclick="location.href='${pageContext.request.contextPath}/pages/specialiste.jsp?patientID=${patient.id}'">Consulter un spécialiste</button>
+          <c:if test="${not estSpecialiste}">
+            <button type="button" onclick="location.href='${pageContext.request.contextPath}/pages/specialiste.jsp?patientID=${patient.id}'">Consulter un spécialiste</button>
+          </c:if>
         </div>
       </form>
 
